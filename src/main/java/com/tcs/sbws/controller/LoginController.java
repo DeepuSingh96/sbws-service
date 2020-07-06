@@ -1,6 +1,6 @@
 package com.tcs.sbws.controller;
 
-import com.tcs.sbws.entity.LoginEntity;
+import com.tcs.sbws.entity.UserEntity;
 import com.tcs.sbws.service.LoginService;
 
 import java.util.Base64;
@@ -50,7 +50,7 @@ public class LoginController {
     			//System.out.println(arr1[1]);
     			System.out.println("Array of --1"+arr1[0]);
     			System.out.println("Array of --2"+arr1[1]);
-    			LoginEntity login1 = new LoginEntity();
+    			UserEntity login1 = new UserEntity();
         		login1.setEmployeeNo(employeeNo);
         		login1.setPassword(password);
             return loginService.addUser(login1);
@@ -62,28 +62,13 @@ public class LoginController {
         }
         return null;
     }
+	//@RequestHeader HttpHeaders headers
     @PostMapping( "/login")// just remove the line @RequestBody com.tcs.sbws.entity.LoginEntity login,
-    public String userLogin(@RequestHeader HttpHeaders headers) {
+    public String userLogin(@RequestBody UserEntity login) {
         LOG.info("Saving user.");
         try
-        {
-        	String value = headers.getFirst(HttpHeaders.AUTHORIZATION);
-    		System.out.println(value);
-    		System.out.println(value.substring(6));
-    		byte[] decodedBytes = Base64.getDecoder().decode(value.substring(6));
-    		String decodedString = new String(decodedBytes);
-    		System.out.println(decodedString);
-    			String arr1[] = decodedString.split(":");
-    			//System.out.println(arr1[0]);
-    			String employeeNo = arr1[0];
-    			String password =	arr1[1];
-    			//System.out.println(arr1[1]);
-    			System.out.println("Array of --1"+arr1[0]);
-    			System.out.println("Array of --2"+arr1[1]);
-    		LoginEntity login1 = new LoginEntity();
-    		login1.setEmployeeNo(employeeNo);
-    		login1.setPassword(password);
-            return loginService.login(login1);
+        {	
+            return loginService.login(login);
         }
         // For specifying wrong message digest algorithms
         catch (Exception e) {

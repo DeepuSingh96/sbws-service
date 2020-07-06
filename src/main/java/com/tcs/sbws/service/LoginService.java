@@ -16,7 +16,7 @@ public class LoginService {
     @Autowired
     private LoginDao loginDao;
 
-    public  String addUser(com.tcs.sbws.entity.LoginEntity login) {
+    public  String addUser(com.tcs.sbws.entity.UserEntity login) {
         try {
             String encryptedPass = EncryptionUtil.encryptText(login.getPassword());
             System.out.println("\n" + login.getPassword() + " : " + encryptedPass);
@@ -33,12 +33,16 @@ public class LoginService {
         }
         return "user not created";
     }
-    public String login(com.tcs.sbws.entity.LoginEntity login) {
+    public String login(com.tcs.sbws.entity.UserEntity login) {
         try {
             LOG.info("Getting user with employeeNo: {}.",login.getEmployeeNo());
-            String encryptedPass = EncryptionUtil.encryptText(login.getPassword());
+           // String encryptedPass = EncryptionUtil.encryptText(login.getPassword());
             Query query = new Query();
-            query.addCriteria(Criteria.where("employeeNo").is(login.getEmployeeNo()).andOperator(Criteria.where("password").is(encryptedPass)));
+            query.addCriteria(Criteria.where("employeeNo").is(login.getEmployeeNo()).andOperator(Criteria.where("password").is(login.getPassword())));
+           
+           // query.addCriteria(Criteria.where("employeeNo").is(login.getEmployeeNo()));
+            
+            
             boolean login1 = loginDao.login(query);
             if (login1){
                 return "login success";
