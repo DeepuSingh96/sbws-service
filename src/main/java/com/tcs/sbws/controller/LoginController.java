@@ -1,6 +1,6 @@
 package com.tcs.sbws.controller;
 
-import com.tcs.sbws.entity.LoginEntity;
+import com.tcs.sbws.entity.UserEntity;
 import com.tcs.sbws.service.LoginService;
 
 import java.util.Base64;
@@ -50,7 +50,7 @@ public class LoginController {
     			//System.out.println(arr1[1]);
     			System.out.println("Array of --1"+arr1[0]);
     			System.out.println("Array of --2"+arr1[1]);
-    			LoginEntity login1 = new LoginEntity();
+    			UserEntity login1 = new UserEntity();
         		login1.setEmployeeNo(employeeNo);
         		login1.setPassword(password);
             return loginService.addUser(login1);
@@ -64,7 +64,7 @@ public class LoginController {
     }
 	//@RequestHeader HttpHeaders headers
     @PostMapping( "/login")// just remove the line @RequestBody com.tcs.sbws.entity.LoginEntity login,
-    public String userLogin(@RequestBody com.tcs.sbws.entity.LoginEntity login) {
+    public String userLogin(@RequestBody UserEntity login) {
         LOG.info("Saving user.");
         try
         {	

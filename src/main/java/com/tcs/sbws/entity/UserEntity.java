@@ -4,8 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class LoginEntity {
+public class UserEntity {
     @Id
+    private int id;
     private String employeeNo;
     private String password;
 
