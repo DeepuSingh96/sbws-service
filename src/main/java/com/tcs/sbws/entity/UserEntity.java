@@ -9,12 +9,21 @@ public class UserEntity {
     private int id;
     private String employeeNo;
     private String password;
+    private int accountId;
 
     public String getEmployeeNo() {
         return employeeNo;
     }
 
-    public void setEmployeeNo(String employeeNo) {
+    public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
+
+	public void setEmployeeNo(String employeeNo) {
         this.employeeNo = employeeNo;
     }
 

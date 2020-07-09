@@ -37,26 +37,23 @@ public class UserDetailsDao {
 
 	public UserDetailsEntity update(String empid, com.tcs.sbws.entity.UserDetailsEntity UserDetailsEntity) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("employee_no").is(empid));
+		query.addCriteria(Criteria.where("employeeNo").is(empid));
 		UserDetailsEntity existingUser = mongoTemplate.findOne(query, UserDetailsEntity.class);
 		if (existingUser != null) {
-			existingUser.setEmployee_name(UserDetailsEntity.getEmployee_name());
-			existingUser.setAccount_name(UserDetailsEntity.getAccount_name());
-			existingUser.setTeam_name(UserDetailsEntity.getTeam_name());
-			existingUser.setCoid(UserDetailsEntity.getCoid());
-			existingUser.setContact_no(UserDetailsEntity.getContact_no());
-			existingUser.setAlternate_contact_no(UserDetailsEntity.getAlternate_contact_no());
-			existingUser.setAddress(UserDetailsEntity.getAddress());
-			existingUser.setPresent_location(UserDetailsEntity.getPresent_location());
-			existingUser.setWork_location(UserDetailsEntity.getWork_location());
-			existingUser.setParent_unit(UserDetailsEntity.getParent_unit());
-			existingUser.setMode_of_working(UserDetailsEntity.getMode_of_working());
-			existingUser.setAsset_id(UserDetailsEntity.getAsset_id());
-			existingUser.setSbws_enabled(UserDetailsEntity.getSbws_enabled());
-			existingUser.setLead_supervisor_name(UserDetailsEntity.getLead_supervisor_name());
-			existingUser.setStaying_in_pg(UserDetailsEntity.getStaying_in_pg());
-			existingUser.setTcs_desktop(UserDetailsEntity.getTcs_desktop());
-			existingUser.setType_of_internetConnection(UserDetailsEntity.getType_of_internetConnection());
+			existingUser.setEmployeeName(UserDetailsEntity.getEmployeeName());
+			existingUser.setAccountId(UserDetailsEntity.getAccountId());
+			existingUser.setTeamName(UserDetailsEntity.getTeamName());
+			existingUser.setCoId(UserDetailsEntity.getCoId());
+			existingUser.setPresentLocation(UserDetailsEntity.getPresentLocation());
+			existingUser.setWorkLocation(UserDetailsEntity.getWorkLocation());
+			existingUser.setParentUnit(UserDetailsEntity.getParentUnit());
+			existingUser.setModeOfWorking(UserDetailsEntity.getModeOfWorking());
+			existingUser.setAssetId(UserDetailsEntity.getAssetId());
+			existingUser.setSbwsEnabled(UserDetailsEntity.getSbwsEnabled());
+			existingUser.setLeadSupervisorName(UserDetailsEntity.getLeadSupervisorName());
+			existingUser.setStayingInPg(UserDetailsEntity.getStayingInPg());
+			existingUser.setTcsDesktop(UserDetailsEntity.getTcsDesktop());
+			existingUser.setTypeOfInternetConnection(UserDetailsEntity.getTypeOfInternetConnection());
 			mongoTemplate.save(existingUser);
 		}
 		return existingUser;

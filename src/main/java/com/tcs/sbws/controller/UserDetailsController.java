@@ -27,8 +27,8 @@ public class UserDetailsController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@GetMapping("/dashboard/{username}/usersDetails")
-	public List<UserDetailsEntity> getAllUserDetails(@PathVariable String username) {
+	@GetMapping("/dashboard/{username}/allEmployeeDetails")
+	public List<UserDetailsEntity> getAllEmployeeDetails(@PathVariable String username) {
 		try {
 			System.out.println(username);
 			return userDetailsDao.getAllUsers();
@@ -39,24 +39,25 @@ public class UserDetailsController {
 		return null;
 	}
 
-	@GetMapping("/dashboard/{username}/usersDetails/{id}")
-	public UserDetailsEntity getTodo(@PathVariable String username, @PathVariable long id) {
+
+	@GetMapping("/dashboard/{username}/usersDetails/{employeeNo}")
+	public UserDetailsEntity getTodo(@PathVariable String username, @PathVariable long employeeNo) {
 		return null;
 	}
 
-	@DeleteMapping("/dashboard/{username}/usersDetails/{empid}")
-	public String deleteTodo(@PathVariable String username, @PathVariable String empid) {
-		return userDetailsDao.deleteByOne(empid);
+	@DeleteMapping("/dashboard/{username}/usersDetails/{employeeNo}")
+	public String deleteTodo(@PathVariable String username, @PathVariable String employeeNo) {
+		return userDetailsDao.deleteByOne(employeeNo);
 		
 	}
 
-	@PutMapping("/dashboard/{username}/usersDetails/{empid}")
-	public UserDetailsEntity updateTodo(@PathVariable String username, @PathVariable String empid,
+	@PutMapping("/dashboard/{username}/usersDetails/{employeeNo}")
+	public UserDetailsEntity updateEmployeeDetails(@PathVariable String username, @PathVariable String employeeNo,
 			@RequestBody UserDetailsEntity userDetails) {
 
 		try {
 
-			return userDetailsDao.update(empid, userDetails);
+			return userDetailsDao.update(employeeNo, userDetails);
 		}
 
 		catch (Exception e) {
@@ -65,8 +66,8 @@ public class UserDetailsController {
 		return null;
 	}
 
-	@PostMapping("/dashboard/{username}/usersDetails/")
-	public String addUserDetails(@PathVariable String username, @RequestBody UserDetailsEntity userDetails) {
+	@PostMapping("/dashboard/{username}/usersDetails")
+	public String addEmployeeDetails(@PathVariable String username, @RequestBody UserDetailsEntity userDetails) {
 
 		try {
 			return userDetailsService.addUser(userDetails);
