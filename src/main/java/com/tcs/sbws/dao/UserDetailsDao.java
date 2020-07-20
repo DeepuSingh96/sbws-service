@@ -2,42 +2,50 @@ package com.tcs.sbws.dao;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
-
 import com.tcs.sbws.entity.UserDetailsEntity;
+
+/*
+ * Created by 1430208-Yamini S
+ * Dao Class for user details adding based on request of logged in user.
+ */
 
 @Component
 public class UserDetailsDao {
+	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-
-	public List<UserDetailsEntity> getAllUsers() {
-		try {
-			return mongoTemplate.findAll(UserDetailsEntity.class);
-		} catch (Exception e) {
-			System.out.println("Exception thrown for incorrect algorithm: " + e);
-			return null;
-		}
-	}
 
 	public boolean addUser(com.tcs.sbws.entity.UserDetailsEntity userDetails) {
 		try {
 			mongoTemplate.save(userDetails);
 		} catch (Exception e) {
-			System.out.println("Exception thrown for incorrect algorithm: " + e);
+			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return false;
 		}
 		return true;
 	}
 
-	public UserDetailsEntity update(String empid, com.tcs.sbws.entity.UserDetailsEntity UserDetailsEntity) {
+	public List<UserDetailsEntity> getAllUsers() {
+		try {
+			return mongoTemplate.findAll(UserDetailsEntity.class);
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+			return null;
+		}
+	}
+
+	public UserDetailsEntity update(String employeeNo, com.tcs.sbws.entity.UserDetailsEntity UserDetailsEntity) {
 		Query query = new Query();
-		query.addCriteria(Criteria.where("employeeNo").is(empid));
+		query.addCriteria(Criteria.where("employeeNo").is(employeeNo));
 		UserDetailsEntity existingUser = mongoTemplate.findOne(query, UserDetailsEntity.class);
 		if (existingUser != null) {
 			existingUser.setEmployeeName(UserDetailsEntity.getEmployeeName());
@@ -59,33 +67,21 @@ public class UserDetailsDao {
 		return existingUser;
 	}
 
-	public String deleteByOne(String empid) {
-		Object userEntity;
-	        try {
-	        	System.out.println(empid);
-	        	Query query = new Query();
-	        	query.addCriteria(Criteria.where("employee_no").is(empid));
-	        	 userEntity = mongoTemplate.findOne(query, UserDetailsEntity.class);
-	        }
-			catch(Exception e)
-			{
-		        System.out.println("Exception thrown for incorrect algorithm: " + e);
-		        return "Fails Deleted";
+	public String deleteByOne(String employeeNo) {
+
+		UserDetailsEntity userEntity;
+		try {
+			logger.info(employeeNo);
+			Query query = new Query();
+			query.addCriteria(Criteria.where("employeeNo").is(employeeNo));
+			userEntity = mongoTemplate.findOne(query,UserDetailsEntity.class);
+			if (userEntity != null) {
+				mongoTemplate.remove(new Query(Criteria.where("employeeNo").is(employeeNo)),UserDetailsEntity.class);
 			}
-			if(userEntity!=null) {
-			try{
-				mongoTemplate.remove(new Query(Criteria.where("employee_no").is(empid)), UserDetailsEntity.class);
-	        }catch(Exception e)
-			{
-				System.out.println("Exception thrown for incorrect algorithm: " + e);
-				return "Fails Deleted";
-			}
-			return"Success Deleted";
-			
-			}
-			else
-			{
-				return "Fails Deleted";
-			}
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+			return "Fails Deleted";
+		}
+		return "Success Deleted";
 	}
 }

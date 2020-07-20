@@ -1,5 +1,7 @@
 package com.tcs.sbws.dao;
 
+import com.tcs.sbws.entity.AccountEntity;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,24 +9,22 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
 
-import com.tcs.sbws.entity.UserEntity;
-
 /*
  * Created by 1430208-Yamini S
- * Dao Class for login user request base.
+ * Dao Class for Account Details.
  */
 
 @Component
-public class LoginDao {
-	
+public class AccountDao {
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
-	
+
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	public boolean addUser(com.tcs.sbws.entity.UserEntity login) {
+	public boolean addAccountUser(com.tcs.sbws.entity.AccountEntity accountEntity) {
 		try {
-			mongoTemplate.save(login);
+			mongoTemplate.save(accountEntity);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return false;
@@ -32,9 +32,9 @@ public class LoginDao {
 		return true;
 	}
 
-	public boolean login(Query query) {
+	public boolean accountAccess(Query query) {
 		try {
-			UserEntity one = mongoTemplate.findOne(query, UserEntity.class);
+			AccountEntity one = mongoTemplate.findOne(query, AccountEntity.class);
 			if (one == null) {
 				return false;
 			}
@@ -44,5 +44,4 @@ public class LoginDao {
 		}
 		return true;
 	}
-
 }
