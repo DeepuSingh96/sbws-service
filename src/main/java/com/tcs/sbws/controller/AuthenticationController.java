@@ -1,7 +1,7 @@
 package com.tcs.sbws.controller;
 
 import com.tcs.sbws.entity.UserEntity;
-import com.tcs.sbws.service.LoginService;
+import com.tcs.sbws.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,30 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-public class LoginController {
+public class AuthenticationController {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 
-	@PostMapping("/addUser")
-	public String addUser(@RequestBody UserEntity login1) {
-		logger.info("Saving user.");
-		try {
-			return loginService.addUser(login1);
-
-		} catch (Exception e) {
-			logger.error("Exception thrown for incorrect algorithm: " + e);
-		}
-		return null;
-	}
 
 	@PostMapping("/login")
 	public String userLogin(@RequestBody UserEntity login) {
 		logger.info("Saving user.");
 		try {
-			return loginService.login(login);
+			return userService.login(login);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 		}
