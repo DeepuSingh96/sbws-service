@@ -54,5 +54,29 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public String updatePassword(UserEntity pwd) {
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("employeeNo").is(pwd.getEmployeeNo()));
+			String userStatus = userDao.isUserExist(query,pwd);
+			if (userStatus=="User id found") {
+				String encryptedPass = EncryptionUtil.encryptText(pwd.getPassword());
+			boolean status=	userDao.updatePwd(pwd,encryptedPass);
+			if(status)
+				return "Password Updated";
+			else
+				return "Password Not Updated";
+			}
+			else if(userStatus=="Old password mismatch")
+				return "Old password mismatch";
+			else
+				return "User Not Exist";
+		} catch (Exception e) {
+			System.out.println("Exception thrown for incorrect algorithm: " + e);
+			return "Password Not Updated";
+		}
+		
+	}
 
 }

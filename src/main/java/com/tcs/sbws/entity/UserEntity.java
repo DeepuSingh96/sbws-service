@@ -19,6 +19,7 @@ public class UserEntity {
 	private String employeeName;
 	private String emailId;
 	private String accountName;
+	private String oldpassword;
 /*
     public UserEntity(String employeeNo, String role, String employeeName, String emailId, String accountName) {
         this.employeeNo = employeeNo;
@@ -90,5 +91,13 @@ public class UserEntity {
 
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
+	}
+
+	public String getOldpassword() {
+		return oldpassword;
+	}
+
+	public void setOldpassword(String oldpassword) {
+		this.oldpassword = oldpassword;
 	}
 }
