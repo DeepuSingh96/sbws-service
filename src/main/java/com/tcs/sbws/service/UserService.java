@@ -12,7 +12,7 @@ import com.tcs.sbws.utils.EncryptionUtil;
 
 @Service
 public class UserService {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
@@ -31,44 +31,40 @@ public class UserService {
 		}
 		return "user not created";
 	}
-	
-	public String login(com.tcs.sbws.entity.UserEntity login) {
+
+	public UserEntity login(com.tcs.sbws.entity.UserEntity userEntityRequest) {
+		UserEntity userEntityResponse = null;
 		try {
-			logger.info("Getting user with employeeNo: {}.", login.getEmployeeNo());
-			String encryptedPass = EncryptionUtil.encryptText(login.getPassword());
+			logger.info("Getting user with employeeNo: {}.", userEntityRequest.getEmployeeNo());
+			String encryptedPass = EncryptionUtil.encryptText(userEntityRequest.getPassword());
 			Query query = new Query();
-			query.addCriteria(Criteria.where("employeeNo").is(login.getEmployeeNo())
+			query.addCriteria(Criteria.where("employeeNo").is(userEntityRequest.getEmployeeNo())
 					.andOperator(Criteria.where("password").is(encryptedPass)));
-			boolean login1 = userDao.login(query);
-			logger.info("Getting login result.", login1);
-			if (login1) {
-				return "login success";
-			}
+			userEntityResponse = userDao.login(query);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 		}
-		return "login success";
+		return userEntityResponse;
 	}
 
 	public String registerUser(UserEntity userEntity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public String updatePassword(UserEntity pwd) {
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("employeeNo").is(pwd.getEmployeeNo()));
-			String userStatus = userDao.isUserExist(query,pwd);
-			if (userStatus=="User id found") {
+			String userStatus = userDao.isUserExist(query, pwd);
+			if (userStatus == "User id found") {
 				String encryptedPass = EncryptionUtil.encryptText(pwd.getPassword());
-			boolean status=	userDao.updatePwd(pwd,encryptedPass);
-			if(status)
-				return "Password Updated";
-			else
-				return "Password Not Updated";
-			}
-			else if(userStatus=="Old password mismatch")
+				boolean status = userDao.updatePwd(pwd, encryptedPass);
+				if (status)
+					return "Password Updated";
+				else
+					return "Password Not Updated";
+			} else if (userStatus == "Old password mismatch")
 				return "Old password mismatch";
 			else
 				return "User Not Exist";
@@ -76,7 +72,7 @@ public class UserService {
 			System.out.println("Exception thrown for incorrect algorithm: " + e);
 			return "Password Not Updated";
 		}
-		
+
 	}
 
 }

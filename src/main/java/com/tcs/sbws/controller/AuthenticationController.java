@@ -24,15 +24,15 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
-
 	@PostMapping("/login")
-	public String userLogin(@RequestBody UserEntity login) {
-		logger.info("Saving user.");
+	public UserEntity userLogin(@RequestBody UserEntity login) {
+		logger.info("Login user");
+		UserEntity userEntityResponse = null;
 		try {
-			return userService.login(login);
+			userEntityResponse = userService.login(login);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 		}
-		return null;
+		return userEntityResponse;
 	}
 }
