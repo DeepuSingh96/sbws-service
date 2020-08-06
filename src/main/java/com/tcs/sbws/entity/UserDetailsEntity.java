@@ -28,8 +28,8 @@ public class UserDetailsEntity {
 	private String stayingInPg;
 	private String tcsDesktop;
 	private String typeOfInternetConnection;
-	private String createdby;
-	private String createdon;
+	private String createdBy;
+	private String createdOn;
 
 	public String getSlNo() {
 		return slNo;
@@ -159,20 +159,20 @@ public class UserDetailsEntity {
 		this.typeOfInternetConnection = typeOfInternetConnection;
 	}
 
-	public String getCreatedby() {
-		return createdby;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreatedby(String createdby) {
-		this.createdby = createdby;
+	public void setCreatedBy(String createdby) {
+		this.createdBy = createdby;
 	}
 
-	public String getCreatedon() {
-		return createdon;
+	public String getCreatedOn() {
+		return createdOn;
 	}
 
-	public void setCreatedon(String createdon) {
-		this.createdon = createdon;
+	public void setCreatedOn(String createdon) {
+		this.createdOn = createdon;
 	}
 
 }

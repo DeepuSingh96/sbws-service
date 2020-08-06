@@ -45,8 +45,8 @@ public class UserDetailsController {
 		        LocalDateTime now = LocalDateTime.now();
 		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		        String formatDateTime = now.format(formatter);
-				userDetails.setCreatedby(username);
-				userDetails.setCreatedon(formatDateTime);
+				userDetails.setCreatedBy(username);
+				userDetails.setCreatedOn(formatDateTime);
 				return userDetailsService.addUser(userDetails);
 			}
 			
