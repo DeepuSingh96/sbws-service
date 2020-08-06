@@ -33,34 +33,41 @@ public class UserDao {
 		return userEntity;
 	}
 
-	public boolean updatePwd(com.tcs.sbws.entity.UserEntity login, String pwd) {
-		try {
-			login.setOldpassword(pwd);
-			login.setPassword(pwd);
-			mongoTemplate.save(login);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
+	public String updatePwd(Query query, com.tcs.sbws.entity.UserEntity userEntityReq) {
 
-	public String isUserExist(Query query, UserEntity user) {
+		String updateMsg = null;
 		try {
-			String encryptedoldPass = EncryptionUtil.encryptText(user.getOldpassword());
-			UserEntity one = mongoTemplate.findOne(query, UserEntity.class);
-			if (one == null) {
-				return "User id not found";
+
+			UserEntity userEntity = getUser(query);
+
+			if (userEntity == null) {
+				updateMsg = "User Not Exist";
 			} else {
 
-				if (encryptedoldPass.equals(one.getOldpassword())) {
-					user.setAccountId(one.getAccountId());
-					return "User id found";
+				if ((EncryptionUtil.encryptText(userEntityReq.getOldPassword())).equals(userEntity.getOldPassword())) {
+					// user.setAccountId(one.getAccountId());
+					userEntity.setOldPassword(EncryptionUtil.encryptText(userEntityReq.getPassword()));
+					userEntity.setPassword(EncryptionUtil.encryptText(userEntityReq.getPassword()));
+					mongoTemplate.save(userEntity);
+					updateMsg = "Password Updated";
 				} else
-					return "Old password mismatch";
+					updateMsg = "Old password mismatch";
 			}
+
 		} catch (Exception e) {
-			return "User id not found";
+
 		}
+
+		return updateMsg;
 	}
 
+	public UserEntity getUser(Query query) {
+		UserEntity userEntity = null;
+		try {
+			userEntity = mongoTemplate.findOne(query, UserEntity.class);
+		} catch (Exception e) {
+		}
+		return userEntity;
+
+	}
 }

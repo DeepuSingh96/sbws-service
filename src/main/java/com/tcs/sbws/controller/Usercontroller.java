@@ -19,19 +19,6 @@ public class Usercontroller {
 
 	@Autowired
 	private UserService userService;
-	
-
-	@PostMapping("/register")
-	public String registerUser(@RequestBody UserEntity userEntity) {
-		logger.info("Saving user.");
-		try {
-			return userService.registerUser(userEntity);
-
-		} catch (Exception e) {
-			logger.error("Exception thrown for incorrect algorithm: " + e);
-		}
-		return null;
-	}
 
 	@PostMapping("/dashboard/addUser")
 	public String addUser(@RequestBody UserEntity userEntity) {
@@ -46,10 +33,10 @@ public class Usercontroller {
 	}
 	
 	@PutMapping("/resetPassword")
-	public String resetPassword(@RequestBody UserEntity password) {
+	public String resetPassword(@RequestBody UserEntity userEntityReq) {
 		logger.info("Saving user.");
 		try {
-			return userService.updatePassword(password);
+			return userService.updatePassword(userEntityReq);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return "Password Not Updated";

@@ -19,8 +19,27 @@ public class UserEntity {
 	private String employeeName;
 	private String emailId;
 	private String accountName;
-	private String oldpassword;
-/*
+	private String oldPassword;
+	private String createdBy;
+	private String createdDate;
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/*
     public UserEntity(String employeeNo, String role, String employeeName, String emailId, String accountName) {
         this.employeeNo = employeeNo;
         this.role = role;
@@ -93,11 +112,11 @@ public class UserEntity {
 		this.accountName = accountName;
 	}
 
-	public String getOldpassword() {
-		return oldpassword;
+	public String getOldPassword() {
+		return oldPassword;
 	}
 
-	public void setOldpassword(String oldpassword) {
-		this.oldpassword = oldpassword;
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
 	}
 }
