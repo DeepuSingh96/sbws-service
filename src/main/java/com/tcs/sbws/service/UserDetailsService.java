@@ -3,8 +3,11 @@ package com.tcs.sbws.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import com.tcs.sbws.dao.UserDetailsDao;
+import com.tcs.sbws.entity.UserDetailsEntity;
 
 /*
  * Created by 1430208-Yamini S
@@ -22,7 +25,11 @@ public class UserDetailsService {
 		try {
 			boolean result = userDetailsDao.addUser(userDetails);
 			if (result) {
-				return "user created";
+				return "User request created";
+			}
+			else
+			{
+				return "User request alredy present";
 			}
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
