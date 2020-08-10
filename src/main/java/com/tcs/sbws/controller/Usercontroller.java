@@ -1,49 +1,45 @@
 package com.tcs.sbws.controller;
 
-import com.tcs.sbws.entity.UserEntity;
-import com.tcs.sbws.service.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-/*
-* Created by 1430208-Yamini S
-* Controller Class for login api which performs operations adding and login user.
-*/
+import com.tcs.sbws.entity.UserEntity;
+import com.tcs.sbws.service.UserService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
-public class LoginController {
-
+public class Usercontroller {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private LoginService loginService;
+	private UserService userService;
 
-	@PostMapping("/addUser")
-	public String addUser(@RequestBody UserEntity login1) {
+	@PostMapping("/dashboard/addUser")
+	public String addUser(@RequestBody UserEntity userEntity) {
 		logger.info("Saving user.");
 		try {
-			return loginService.addUser(login1);
+			return userService.addUser(userEntity);
 
 		} catch (Exception e) {
-			logger.error("Exception thrown for incorrect algorithm: " + e);
+			System.out.println("Exception thrown for incorrect algorithm: " + e);
 		}
 		return null;
 	}
-
-	@PostMapping("/login")
-	public String userLogin(@RequestBody UserEntity login) {
+	
+	@PutMapping("/resetPassword")
+	public String resetPassword(@RequestBody UserEntity userEntityReq) {
 		logger.info("Saving user.");
 		try {
-			return loginService.login(login);
+			return userService.updatePassword(userEntityReq);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
+			return "Password Not Updated";
 		}
-		return null;
 	}
 }

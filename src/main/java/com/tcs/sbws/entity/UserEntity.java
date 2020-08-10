@@ -14,8 +14,41 @@ public class UserEntity {
 	private String employeeNo;
 	private String password;
 	private int accountId;
+	private String role;
+	private boolean active;
+	private String employeeName;
+	private String emailId;
+	private String accountName;
+	private String oldPassword;
+	private String createdBy;
+	private String createdDate;
 
-	public String getEmployeeNo() {
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/*
+    public UserEntity(String employeeNo, String role, String employeeName, String emailId, String accountName) {
+        this.employeeNo = employeeNo;
+        this.role = role;
+        this.employeeName = employeeName;
+        this.emailId = emailId;
+        this.accountName = accountName;
+    }
+*/
+    public String getEmployeeNo() {
 		return employeeNo;
 	}
 
@@ -39,4 +72,51 @@ public class UserEntity {
 		this.accountId = accountId;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 }

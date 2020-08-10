@@ -25,13 +25,22 @@ public class UserDetailsDao {
 	private MongoTemplate mongoTemplate;
 
 	public boolean addUser(com.tcs.sbws.entity.UserDetailsEntity userDetails) {
+		UserDetailsEntity status;
 		try {
-			mongoTemplate.save(userDetails);
+			Query query = new Query();
+			query.addCriteria(Criteria.where("employeeNo").is(userDetails.getEmployeeNo()));
+			status = mongoTemplate.findOne(query,UserDetailsEntity.class);
+			if (status == null) {
+				mongoTemplate.save(userDetails);
+				return true;
+			}
+			return false;
+			
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return false;
 		}
-		return true;
+		
 	}
 
 	public List<UserDetailsEntity> getAllUsers() {

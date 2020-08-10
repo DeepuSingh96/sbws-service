@@ -15,7 +15,7 @@ public class UserDetailsEntity {
 	private String slNo;
 	private String employeeNo;
 	private String employeeName;
-	private int accountId;
+	private String accountId;
 	private String teamName;
 	private String coId;
 	private String presentLocation;
@@ -28,6 +28,8 @@ public class UserDetailsEntity {
 	private String stayingInPg;
 	private String tcsDesktop;
 	private String typeOfInternetConnection;
+	private String createdBy;
+	private String createdOn;
 
 	public String getSlNo() {
 		return slNo;
@@ -53,11 +55,11 @@ public class UserDetailsEntity {
 		this.employeeName = employeeName;
 	}
 
-	public int getAccountId() {
+	public String getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(int accountId) {
+	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
 
@@ -155,6 +157,22 @@ public class UserDetailsEntity {
 
 	public void setTypeOfInternetConnection(String typeOfInternetConnection) {
 		this.typeOfInternetConnection = typeOfInternetConnection;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdby) {
+		this.createdBy = createdby;
+	}
+
+	public String getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(String createdon) {
+		this.createdOn = createdon;
 	}
 
 }

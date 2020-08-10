@@ -1,6 +1,8 @@
 package com.tcs.sbws.controller;
 
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import com.tcs.sbws.entity.AccountEntity;
 import com.tcs.sbws.service.AccountService;
 
@@ -37,7 +39,17 @@ public class UserDetailsController {
 	public String addEmployeeDetails(@PathVariable String username, @RequestBody UserDetailsEntity userDetails) {
 
 		try {
-			return userDetailsService.addUser(userDetails);
+			if(username!="")
+			{
+				//Get current date time
+		        LocalDateTime now = LocalDateTime.now();
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		        String formatDateTime = now.format(formatter);
+				userDetails.setCreatedBy(username);
+				userDetails.setCreatedOn(formatDateTime);
+				return userDetailsService.addUser(userDetails);
+			}
+			
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 		}
