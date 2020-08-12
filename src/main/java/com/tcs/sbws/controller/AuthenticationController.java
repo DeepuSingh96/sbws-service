@@ -1,10 +1,21 @@
 package com.tcs.sbws.controller;
 
 import com.tcs.sbws.entity.UserEntity;
+import com.tcs.sbws.repository.UsersRepository;
 import com.tcs.sbws.service.UserService;
+import com.tcs.sbws.utils.EncryptionUtil;
+import com.tcs.sbws.utils.JwtUtil;
+import com.tcs.sbws.vo.LoginResponse;
+
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,20 +30,38 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-	private final Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+//	@Autowired
+//	private MyUserDetailsService myUserDetailsService;  
 
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private JwtUtil jwtTokenUtil;
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@PostMapping("/login")
-	public UserEntity userLogin(@RequestBody UserEntity login) {
-		logger.info("Login user");
-		UserEntity userEntityResponse = null;
-		try {
-			userEntityResponse = userService.login(login);
-		} catch (Exception e) {
-			logger.error("Exception thrown for incorrect algorithm: " + e);
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody UserEntity authenticationRequest) throws Exception {
+
+		final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getEmployeeNo());
+
+		EncryptionUtil e = new EncryptionUtil();
+		if (!userDetails.getPassword().contains(e.encryptText(authenticationRequest.getPassword()))) {
+			return ResponseEntity.badRequest().build();
 		}
-		return userEntityResponse;
+		// System.out.println(userDetails);
+		Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>) userDetails.getAuthorities();
+		String roles = "";
+		for (GrantedAuthority authority : authorities) {
+			roles = authority.getAuthority();
+		}
+
+		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		return ResponseEntity.ok(new LoginResponse(jwt, roles,"Standard life"));
+
 	}
 }
