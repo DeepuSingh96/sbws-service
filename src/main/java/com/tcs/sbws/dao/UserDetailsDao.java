@@ -1,5 +1,6 @@
 package com.tcs.sbws.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Component;
+
+import com.tcs.sbws.entity.Testing;
 import com.tcs.sbws.entity.UserDetailsEntity;
 
 /*
@@ -43,15 +46,51 @@ public class UserDetailsDao {
 		
 	}
 
-	public List<UserDetailsEntity> getAllUsers() {
+	public List<Testing> getAllUsers() {
 		try {
-			return mongoTemplate.findAll(UserDetailsEntity.class);
+			//return mongoTemplate.findAll(UserDetailsEntity.class);
+			System.out.println("All status");
+			//List list=new ArrayList();
+			Query query = new Query();
+			query.addCriteria(Criteria.where("status").ne("deleted"));
+			//creating old non-generic arraylist  
+			//list = );
+			return mongoTemplate.find(query, Testing.class);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return null;
 		}
 	}
-
+	
+	public List<Testing> getDeleteAllUsers() {
+		try {
+			System.out.println("deleted status");
+			//List list=new ArrayList();
+			Query query = new Query();
+			query.addCriteria(Criteria.where("status").is("deleted"));
+			//creating old non-generic arraylist  
+			//list = );
+			return mongoTemplate.find(query, Testing.class);
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+			return null;
+		}
+	}
+	
+	public List<Testing> getPendingAllUsers() {
+		try {
+			System.out.println("pending status");
+			//List list=new ArrayList();
+			Query query = new Query();
+			query.addCriteria(Criteria.where("status").is("pending"));
+			//creating old non-generic arraylist  
+			//list = );
+			return mongoTemplate.find(query, Testing.class);
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+			return null;
+		}
+	}
 	public UserDetailsEntity update(String employeeNo, com.tcs.sbws.entity.UserDetailsEntity UserDetailsEntity) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("employeeNo").is(employeeNo));
