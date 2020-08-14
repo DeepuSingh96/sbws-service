@@ -46,7 +46,7 @@ public class UserDetailsDao {
 		
 	}
 
-	public List<Testing> getAllUsers() {
+	public List<UserDetailsEntity> getAllUsers() {
 		try {
 			//return mongoTemplate.findAll(UserDetailsEntity.class);
 			System.out.println("All status");
@@ -55,14 +55,14 @@ public class UserDetailsDao {
 			query.addCriteria(Criteria.where("status").ne("deleted"));
 			//creating old non-generic arraylist  
 			//list = );
-			return mongoTemplate.find(query, Testing.class);
+			return mongoTemplate.find(query, UserDetailsEntity.class);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return null;
 		}
 	}
 	
-	public List<Testing> getDeleteAllUsers() {
+	public List<UserDetailsEntity> getDeleteAllUsers() {
 		try {
 			System.out.println("deleted status");
 			//List list=new ArrayList();
@@ -70,14 +70,14 @@ public class UserDetailsDao {
 			query.addCriteria(Criteria.where("status").is("deleted"));
 			//creating old non-generic arraylist  
 			//list = );
-			return mongoTemplate.find(query, Testing.class);
+			return mongoTemplate.find(query, UserDetailsEntity.class);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return null;
 		}
 	}
 	
-	public List<Testing> getPendingAllUsers() {
+	public List<UserDetailsEntity> getPendingAllUsers() {
 		try {
 			System.out.println("pending status");
 			//List list=new ArrayList();
@@ -85,7 +85,7 @@ public class UserDetailsDao {
 			query.addCriteria(Criteria.where("status").is("pending"));
 			//creating old non-generic arraylist  
 			//list = );
-			return mongoTemplate.find(query, Testing.class);
+			return mongoTemplate.find(query, UserDetailsEntity.class);
 		} catch (Exception e) {
 			logger.error("Exception thrown for incorrect algorithm: " + e);
 			return null;

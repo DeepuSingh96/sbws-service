@@ -58,7 +58,7 @@ public class UserDetailsController {
 	}
 
 	@GetMapping("/dashboard/{username}/allEmployeeDetails")
-	public List<Testing> getAllEmployeeDetails(@PathVariable String username) {
+	public List<UserDetailsEntity> getAllEmployeeDetails(@PathVariable String username) {
 		try {
 			logger.info(username);
 			return userDetailsDao.getAllUsers();
@@ -70,7 +70,7 @@ public class UserDetailsController {
 	}
 	
 	@GetMapping("/dashboard/{username}/allEmployeeDetails/deletedStatus")
-	public List<Testing> getAllDeletedStatusEmployeeDetails(@PathVariable String username) {
+	public List<UserDetailsEntity> getAllDeletedStatusEmployeeDetails(@PathVariable String username) {
 		try {
 			logger.info(username);
 			return userDetailsDao.getDeleteAllUsers();
@@ -82,7 +82,7 @@ public class UserDetailsController {
 	}
 	
 	@GetMapping("/dashboard/{username}/allEmployeeDetails/pendingStatus")
-	public List<Testing> getAllPendingStatusEmployeeDetails(@PathVariable String username) {
+	public List<UserDetailsEntity> getAllPendingStatusEmployeeDetails(@PathVariable String username) {
 		try {
 			logger.info(username);
 			return userDetailsDao.getPendingAllUsers();
