@@ -4,6 +4,7 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.tcs.sbws.entity.AccountEntity;
+import com.tcs.sbws.entity.Testing;
 import com.tcs.sbws.service.AccountService;
 
 import org.slf4j.Logger;
@@ -67,7 +68,31 @@ public class UserDetailsController {
 
 		return null;
 	}
+	
+	@GetMapping("/dashboard/{username}/allEmployeeDetails/deletedStatus")
+	public List<UserDetailsEntity> getAllDeletedStatusEmployeeDetails(@PathVariable String username) {
+		try {
+			logger.info(username);
+			return userDetailsDao.getDeleteAllUsers();
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+		}
 
+		return null;
+	}
+	
+	@GetMapping("/dashboard/{username}/allEmployeeDetails/pendingStatus")
+	public List<UserDetailsEntity> getAllPendingStatusEmployeeDetails(@PathVariable String username) {
+		try {
+			logger.info(username);
+			return userDetailsDao.getPendingAllUsers();
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+		}
+
+		return null;
+	}
+	
 	@PutMapping("/dashboard/{username}/usersDetails/{employeeNo}")
 	public UserDetailsEntity updateEmployeeDetails(@PathVariable String username, @PathVariable String employeeNo,
 			@RequestBody UserDetailsEntity userDetails) {
