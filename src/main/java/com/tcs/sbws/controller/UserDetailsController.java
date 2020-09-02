@@ -22,7 +22,7 @@ import com.tcs.sbws.service.UserDetailsService;
  * Changes - Account Base
  */
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserDetailsController {
 

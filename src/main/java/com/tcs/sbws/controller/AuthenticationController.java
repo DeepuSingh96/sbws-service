@@ -6,6 +6,7 @@ import com.tcs.sbws.service.UserService;
 import com.tcs.sbws.utils.EncryptionUtil;
 import com.tcs.sbws.utils.JwtUtil;
 import com.tcs.sbws.vo.LoginResponse;
+import com.tcs.sbws.vo.MyUserDetails;
 
 import java.util.Collection;
 
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 * Controller Class for login api which performs operations adding and login user.
 */
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class AuthenticationController {
 
@@ -47,7 +48,7 @@ public class AuthenticationController {
 	@PostMapping("/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody UserEntity authenticationRequest) throws Exception {
 
-		final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getEmployeeNo());
+		final MyUserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getEmployeeNo());
 
 		EncryptionUtil e = new EncryptionUtil();
 		if (!userDetails.getPassword().contains(e.encryptText(authenticationRequest.getPassword()))) {
@@ -61,7 +62,7 @@ public class AuthenticationController {
 		}
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
-		return ResponseEntity.ok(new LoginResponse(jwt, roles,"Standard life"));
+		return ResponseEntity.ok(new LoginResponse(jwt, roles,"Standard life",userDetails.getEmployeeName()));
 
 	}
 }

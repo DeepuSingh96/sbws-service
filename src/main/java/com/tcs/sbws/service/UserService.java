@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private UsersRepository repository;
 	
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public MyUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		 Optional<UserEntity> user = repository.findByemployeeNo(username);
 		    if(user == null) {
