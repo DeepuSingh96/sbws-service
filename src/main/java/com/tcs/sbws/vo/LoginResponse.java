@@ -4,7 +4,14 @@ public class LoginResponse {
 
 	private final String jwt ;
 	private final String roles ;
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+
+
 	private final String accountName;
+	private final String employeeName;
 	
 	
 	public String getAccountName() {
@@ -13,11 +20,12 @@ public class LoginResponse {
 
 
 
-	public LoginResponse(String jwt,String roles,String accountName) {
+	public LoginResponse(String jwt,String roles,String accountName,String employeeName) {
 		super();
 		this.jwt = jwt;
 		this.roles=roles;
 		this.accountName = accountName;
+		this.employeeName = employeeName;
 	}
 
 

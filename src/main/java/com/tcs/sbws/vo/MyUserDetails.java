@@ -22,11 +22,13 @@ public class MyUserDetails implements UserDetails {
 	private boolean active;
 	private String accountName;
 	private List<GrantedAuthority> authorities;
+	private String employeeName;
 
 	public MyUserDetails(UserEntity user) {
 		this.userName = user.getEmployeeNo();
 		this.password = user.getPassword();
-		this.accountName = user.getAccountName(); 
+		this.accountName = user.getAccountName();
+		this.employeeName = user.getEmployeeName();
 		this.active = user.isActive();
 		this.authorities = Arrays.stream(user.getRoles().split(",")).
 							map(SimpleGrantedAuthority::new).
@@ -50,6 +52,22 @@ public class MyUserDetails implements UserDetails {
 	}
 
 
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
 
 	@Override
 	public boolean isAccountNonExpired() {

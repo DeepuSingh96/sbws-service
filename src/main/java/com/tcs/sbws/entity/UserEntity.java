@@ -22,6 +22,7 @@ public class UserEntity {
 	private String accountName;
 	private String oldPassword;
 	private String createdBy;
+	private String createdOn;
 	
 	public String getEmployeeNo() {
 		return employeeNo;
@@ -82,5 +83,11 @@ public class UserEntity {
 	}
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+	public String getCreatedOn() {
+		return createdOn;
+	}
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
 	}
 }

@@ -1,5 +1,8 @@
 package com.tcs.sbws.dao;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -39,6 +42,9 @@ public class UserDao {
 		try {
 
 			UserEntity userEntity = getUser(query);
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			String formatDateTime = now.format(formatter);
 
 			if (userEntity == null) {
 				updateMsg = "User Not Exist";
@@ -48,6 +54,7 @@ public class UserDao {
 					// user.setAccountId(one.getAccountId());
 					userEntity.setOldPassword(EncryptionUtil.encryptText(userEntityReq.getPassword()));
 					userEntity.setPassword(EncryptionUtil.encryptText(userEntityReq.getPassword()));
+					userEntity.setCreatedOn(formatDateTime);
 					mongoTemplate.save(userEntity);
 					updateMsg = "Password Updated";
 				} else

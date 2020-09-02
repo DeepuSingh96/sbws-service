@@ -1,8 +1,9 @@
 package com.tcs.sbws.controller;
 
-import java.util.List;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import com.tcs.sbws.entity.AccountEntity;
 import com.tcs.sbws.entity.Testing;
 import com.tcs.sbws.service.AccountService;
@@ -21,7 +22,7 @@ import com.tcs.sbws.service.UserDetailsService;
  * Changes - Account Base
  */
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserDetailsController {
 
@@ -56,7 +57,35 @@ public class UserDetailsController {
 		}
 		return null;
 	}
+//Changes -start-done by -yamini
+	//1.Get admin request
+    @PostMapping("/dashboard/{username}/adminRequest")
+    public String addRequestAdmin(@PathVariable String username, @RequestBody UserDetailsEntity userDetails) {
 
+        try {
+            if(username!="")
+            {
+                //Get current date time
+                return userDetailsService.addUserAdmin(username,userDetails);
+            }
+
+        } catch (Exception e) {
+            logger.error("Exception thrown for incorrect algorithm: " + e);
+        }
+        return null;
+    }
+    //2.Get data for completed,pending,deleted etc status
+	@GetMapping("/dashboard/{username}/{status}")
+	public List<UserDetailsEntity> getUserStatus(@PathVariable String status) {
+		try {
+			logger.info(status);
+			return userDetailsDao.getUserStatus(status);
+		} catch (Exception e) {
+			logger.error("Exception thrown for incorrect algorithm: " + e);
+		}
+		return null;
+	}
+  //3.Updated changes based on admin base updation in future
 	@GetMapping("/dashboard/{username}/allEmployeeDetails")
 	public List<UserDetailsEntity> getAllEmployeeDetails(@PathVariable String username) {
 		try {
@@ -111,7 +140,7 @@ public class UserDetailsController {
 	@DeleteMapping("/dashboard/{username}/removeUsersDetails/{employeeNo}")
 	public String deleteTodo(@PathVariable String username, @PathVariable String employeeNo) {
 
-		return userDetailsDao.deleteByOne(employeeNo);
+		return userDetailsDao.deleteByOne(username,employeeNo);
 
 	}
 

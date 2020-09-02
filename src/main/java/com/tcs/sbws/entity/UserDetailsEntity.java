@@ -30,6 +30,18 @@ public class UserDetailsEntity {
 	private String typeOfInternetConnection;
 	private String createdBy;
 	private String createdOn;
+	//change for admin request to add manager/otherUser -1430208
+	private String status;
+	private String deleteBy;
+	private String deleteOn;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getSlNo() {
 		return slNo;
@@ -175,4 +187,11 @@ public class UserDetailsEntity {
 		this.createdOn = createdon;
 	}
 
+	public String getDeleteBy() { return deleteBy; }
+
+	public void setDeleteBy(String deleteBy) { this.deleteBy = deleteBy; }
+
+	public String getDeleteOn() { return deleteOn; }
+
+	public void setDeleteOn(String deleteOn) {this.deleteOn = deleteOn; }
 }
