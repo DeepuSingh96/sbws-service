@@ -32,8 +32,17 @@ public class UserDetailsEntity {
 	private String createdOn;
 	//change for admin request to add manager/otherUser -1430208
 	private String status;
+	public String getBackupResource() {
+		return backupResource;
+	}
+
+	public void setBackupResource(String backupResource) {
+		this.backupResource = backupResource;
+	}
+
 	private String deleteBy;
 	private String deleteOn;
+	private String backupResource;
 
 	public String getStatus() {
 		return status;
