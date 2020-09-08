@@ -150,6 +150,8 @@ public class UserDetailsDao {
 			existingUser.setTcsDesktop(UserDetailsEntity.getTcsDesktop());
 			existingUser.setTypeOfInternetConnection(UserDetailsEntity.getTypeOfInternetConnection());
 			existingUser.setBackupResource(UserDetailsEntity.getBackupResource());
+			existingUser.setLaptopTagged(UserDetailsEntity.getLaptopTagged());
+			existingUser.setLaptopAssetId(UserDetailsEntity.getLaptopAssetId());
 			if ((UserDetailsEntity.getTeamName().trim().length() > 0) && (UserDetailsEntity.getCoId().trim().length() > 0)
 					&&(UserDetailsEntity.getPresentLocation().trim().length() > 0)
 					&& (UserDetailsEntity.getWorkLocation().trim().length() > 0)

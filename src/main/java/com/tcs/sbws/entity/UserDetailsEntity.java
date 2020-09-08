@@ -30,8 +30,29 @@ public class UserDetailsEntity {
 	private String typeOfInternetConnection;
 	private String createdBy;
 	private String createdOn;
+	private String laptopTagged;
+	private String laptopAssetId;
 	//change for admin request to add manager/otherUser -1430208
 	private String status;
+	private String deleteBy;
+	private String deleteOn;
+	private String backupResource;
+	
+	public String getLaptopTagged() {
+		return laptopTagged;
+	}
+
+	public void setLaptopTagged(String laptopTagged) {
+		this.laptopTagged = laptopTagged;
+	}
+
+	public String getLaptopAssetId() {
+		return laptopAssetId;
+	}
+
+	public void setLaptopAssetId(String laptopAssetId) {
+		this.laptopAssetId = laptopAssetId;
+	}
 	public String getBackupResource() {
 		return backupResource;
 	}
@@ -39,10 +60,6 @@ public class UserDetailsEntity {
 	public void setBackupResource(String backupResource) {
 		this.backupResource = backupResource;
 	}
-
-	private String deleteBy;
-	private String deleteOn;
-	private String backupResource;
 
 	public String getStatus() {
 		return status;
