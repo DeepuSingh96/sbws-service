@@ -149,6 +149,7 @@ public class UserDetailsDao {
 			existingUser.setStayingInPg(UserDetailsEntity.getStayingInPg());
 			existingUser.setTcsDesktop(UserDetailsEntity.getTcsDesktop());
 			existingUser.setTypeOfInternetConnection(UserDetailsEntity.getTypeOfInternetConnection());
+			existingUser.setBackupResource(UserDetailsEntity.getBackupResource());
 			if ((UserDetailsEntity.getTeamName().trim().length() > 0) && (UserDetailsEntity.getCoId().trim().length() > 0)
 					&&(UserDetailsEntity.getPresentLocation().trim().length() > 0)
 					&& (UserDetailsEntity.getWorkLocation().trim().length() > 0)
